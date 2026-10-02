@@ -1,6 +1,6 @@
 # Three-SSD workflow and completion contract
 
-Status: draft for Terry's review, produced for localswim card #0001 on 2026-10-02.
+Status: accepted by Terry through localswim card #0001, Completed on 2026-10-02.
 This document specifies intended behavior; it is not evidence that an iPad build
 has achieved it. Platform-dependent guarantees remain subject to the board's
 hardware probes.
@@ -139,14 +139,15 @@ fingerprint: agreement between two later reads does not validate already-landed
 bytes if the source itself changed. A transient event with later agreement to
 the canonical bytes remains visible in the report.
 
-Proposed MobileFlow baseline: retain the sources and already-verified SSD copies,
+Accepted MobileFlow baseline: retain the sources and already-verified SSD copies,
 stop the affected follow-on work, and report **Needs attention** on a confirmed
 disagreement. Do not silently choose which version is correct, delete archive
 files, or place disputed photo bytes in the iPad's storage. A future recovery
 feature may preserve both versions on the external SSDs, but needs its own
 explicit layout and verification contract.
 
-This is an intentional proposal for review. Upstream's default corroboration
+This is an intentional adaptation accepted with card #0001. Upstream's default
+corroboration
 path quarantines both versions outside the normal archive and removes the
 disputed photo from all normal destinations; its `--fail-on-source-mismatch`
 option instead stops without deletion. MobileFlow starts from the latter safety
@@ -253,16 +254,16 @@ were inspected. This pins the behavioral reference; it does not complete card
 #0002's portability/dependency/license audit.
 
 The current hardware/build decisions come from Terry's MobileFlow instructions,
-not assumptions about the older Windows rig. Review of this draft settles the
+not assumptions about the older Windows rig. Review of card #0001 settled the
 initial behavior, especially the non-deleting disagreement policy and separate
 photo/whole-run/disconnect verdicts. Cards #0006-#0012 establish platform access,
 durability, identity, lifecycle, and performance evidence. Card #0013 chooses the
 architecture from those results. Signing and the device-install route remain
 card #0003; GitHub Actions is the tentative macOS build host.
 
-The principal MobileFlow adaptations to review are:
+The principal accepted MobileFlow adaptations are:
 
-| Upstream behavior | MobileFlow draft |
+| Upstream behavior | MobileFlow contract |
 | --- | --- |
 | Four destinations, including the laptop | Exactly three external SSD backups; local photo staging and quarantine are excluded. |
 | Default confirmed-card-mismatch quarantine and archive removal | Preserve already-landed copies and stop with Needs attention, following the non-deleting branch. |

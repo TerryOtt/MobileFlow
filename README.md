@@ -23,7 +23,7 @@ errors will be visible for each destination. Success requires all three copies
 to pass verification; corroboration and geotagging results will be reported
 explicitly.
 
-The draft [workflow and completion contract](docs/WORKFLOW.md) defines phase order,
+The accepted [workflow and completion contract](docs/WORKFLOW.md) defines phase order,
 source protection, date organization, deterministic naming, three-copy verification,
 corroboration, GPS behavior, recovery, and the exact meaning of each result. Source
 cards must never be modified. Platform guarantees still require hardware evidence.
@@ -33,6 +33,11 @@ cards must never be modified. Platform guarantees still require hardware evidenc
 Use SwiftUI for the native interface and evaluate reuse of PhotoTravelWorkflow's
 Rust engine. Replace Windows-specific storage access with an iPadOS layer that
 uses user-selected folders.
+
+The [upstream portability audit](docs/PORTABILITY-AUDIT.md) maps reusable modules,
+Windows replacements, locked dependencies, fixture gaps, and license obligations.
+It records passing Windows tests; Apple compilation and hardware guarantees are
+still to be established.
 
 The first milestone is a hardware proof of concept: one source folder to one
 external SSD. Validate folder access, durable writes, read-back verification,

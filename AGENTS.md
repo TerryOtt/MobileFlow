@@ -13,10 +13,14 @@ Validate durable writes and cache-aware read-back verification on the actual
 hardware before claiming the Windows implementation's media-verification
 guarantee. Report any platform limits honestly.
 
-`docs/WORKFLOW.md` is the repository's behavior-contract draft for card #0001.
+`docs/WORKFLOW.md` is the repository's accepted behavior contract for card #0001.
 Keep phase order, source protection, recovery, and verdict meanings consistent
-with its reviewed decisions. Its draft/review status is explicit in the document;
+with its reviewed decisions. Its acceptance status is explicit in the document;
 the platform guarantees it requests are not claims of a validated implementation.
+
+`docs/PORTABILITY-AUDIT.md` records the pinned upstream audit for card #0002,
+including the reuse map, port requirements, test evidence, and dependency notices.
+Use it as input to the probes and architecture card; Apple builds remain unverified.
 
 ## Build hosting
 
