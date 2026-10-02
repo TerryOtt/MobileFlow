@@ -46,9 +46,10 @@ drive-release behavior also require validation on the actual setup.
 ## Development and project board
 
 Portable engine work can be developed and tested on Windows. Building and signing
-the native iPad app requires an Apple toolchain on a supported macOS host, which
-can be a local Mac or a remote build host. Build access, signing, and device
-installation are early project milestones.
+the native iPad app requires an Apple toolchain on a supported macOS host. The
+tentative build host is a standard GitHub Actions macOS runner. Local Mac access
+or EC2 Mac hosting remains a fallback if development needs it. Runner/Xcode
+compatibility, signing, and device installation are early project milestones.
 
 The machine-local localswim board lives at
 `C:\Projects\localswim-state-store\MobileFlow\mobileflow-localswim.json` and initially

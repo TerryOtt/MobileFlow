@@ -13,6 +13,15 @@ Validate durable writes and cache-aware read-back verification on the actual
 hardware before claiming the Windows implementation's media-verification
 guarantee. Report any platform limits honestly.
 
+## Build hosting
+
+Terry selected GitHub Actions tentatively on 2026-10-02. Plan native app builds
+on standard GitHub-hosted macOS runners, with Xcode and the chosen engine
+toolchain. Windows remains the local editing and portable-test workspace.
+Validate runner/Xcode compatibility and the signing/device-install route in the
+early build-access card. A local Mac or EC2 Mac is a fallback, not a required
+purchase. This choice does not settle the app's distribution method.
+
 ## localswim board and required JSON monitor
 
 The authoritative project board is:
