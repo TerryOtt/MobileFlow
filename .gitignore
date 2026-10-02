@@ -1,0 +1,7 @@
+.research/
+.DS_Store
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+target/
