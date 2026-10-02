@@ -13,6 +13,11 @@ Validate durable writes and cache-aware read-back verification on the actual
 hardware before claiming the Windows implementation's media-verification
 guarantee. Report any platform limits honestly.
 
+`docs/WORKFLOW.md` is the repository's behavior-contract draft for card #0001.
+Keep phase order, source protection, recovery, and verdict meanings consistent
+with its reviewed decisions. Its draft/review status is explicit in the document;
+the platform guarantees it requests are not claims of a validated implementation.
+
 ## Build hosting
 
 Terry selected GitHub Actions tentatively on 2026-10-02. Plan native app builds

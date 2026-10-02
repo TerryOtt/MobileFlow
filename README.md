@@ -23,10 +23,10 @@ errors will be visible for each destination. Success requires all three copies
 to pass verification; corroboration and geotagging results will be reported
 explicitly.
 
-Preserve the existing workflow's date-based organization, deterministic naming,
-SHA-256 verification, and manifests where practical. Source cards must never be
-modified. Interrupted runs and disconnected drives must be recoverable without
-presenting partial files as completed backups.
+The draft [workflow and completion contract](docs/WORKFLOW.md) defines phase order,
+source protection, date organization, deterministic naming, three-copy verification,
+corroboration, GPS behavior, recovery, and the exact meaning of each result. Source
+cards must never be modified. Platform guarantees still require hardware evidence.
 
 ## Initial technical direction
 
