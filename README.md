@@ -42,3 +42,25 @@ The completion guarantee remains a design question until the iPadOS storage
 layer is validated. A hash read served from cache must not be represented as
 proof that bytes were read back from physical media. Background operation and
 drive-release behavior also require validation on the actual setup.
+
+## Development and project board
+
+Portable engine work can be developed and tested on Windows. Building and signing
+the native iPad app requires an Apple toolchain on a supported macOS host, which
+can be a local Mac or a remote build host. Build access, signing, and device
+installation are early project milestones.
+
+The machine-local localswim board lives at
+`C:\Projects\localswim-state-store\MobileFlow\mobileflow-localswim.json` and initially
+uses [http://127.0.0.1:8806/](http://127.0.0.1:8806/). Its JSON is outside this public
+repository.
+
+Before opening the board, start or reuse its service and required JSON monitor:
+
+```powershell
+& D:\Projects\MobileFlow\scripts\Start-Board.ps1 -ThreadId $env:CODEX_THREAD_ID
+```
+
+Run this from a Codex session with the tools and shared monitor described in
+`AGENTS.md`. The launcher requires an active Codex thread UUID and keeps the
+monitor targeted at that thread. Board reads and writes use `localswim-cli`.
