@@ -56,20 +56,13 @@ tentative build host is a standard GitHub Actions macOS runner. Local Mac access
 or EC2 Mac hosting remains a fallback if development needs it. Runner/Xcode
 compatibility, signing, and device installation are early project milestones.
 
-The machine-local localswim board lives at
-`C:\Projects\localswim-state-store\MobileFlow\mobileflow-localswim.json` and initially
-uses [http://127.0.0.1:8806/](http://127.0.0.1:8806/). Its JSON is outside this public
-repository.
-
-Before opening the board, start or reuse its service and required JSON monitor:
-
-```powershell
-& D:\Projects\MobileFlow\scripts\Start-Board.ps1 -ThreadId $env:CODEX_THREAD_ID
-```
-
-Run this from a Codex session with the tools and shared monitor described in
-`AGENTS.md`. The launcher requires an active Codex thread UUID and keeps the
-monitor targeted at that thread. Board reads and writes use `localswim-cli`.
+Work is tracked on the machine-local `MobileFlow` board of Terry's shared
+localswim v2 service (base URL in its service receipt, `http://127.0.0.1:8811` as
+of 2026-11-26). The board's data is outside this public repository. Agents reach
+it through `scripts/localswim.ps1`; [AGENTS.md](AGENTS.md) gives the board ID, the
+lane rules, and how Claude and Codex sessions hear board changes. Card numbers
+changed when the board moved from localswim v1;
+[docs/CARD-NUMBERS.md](docs/CARD-NUMBERS.md) maps them.
 
 Agent working instructions live in [AGENTS.md](AGENTS.md); `CLAUDE.md` is a
 symbolic link to it.

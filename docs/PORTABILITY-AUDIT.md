@@ -1,6 +1,6 @@
 # PhotoTravelWorkflow portability audit
 
-Status: ready for review, localswim card #0002, 2026-10-02. This is an audit of
+Status: accepted by Terry through localswim card #0004, Completed on 2026-10-02. This is an audit of
 existing code, not an Apple implementation or the architecture decision assigned
 to card #0013. [WORKFLOW.md](WORKFLOW.md) supplies the accepted MobileFlow behavior.
 
@@ -104,16 +104,16 @@ requirements for MobileFlow; this card does not modify upstream.
 
 | Finding | Evidence and consequence | Owning MobileFlow cards |
 | --- | --- | --- |
-| Naming is resolved independently per destination | `pipeline.rs:place` checks each drive's existing contents and chooses its suffix there. Divergent existing archives can therefore give the same source photo different destination paths; `Outcome::landed` checks hashes/counts, not path agreement. Choose one shared plan before writing. | #0020, #0022, #0026 |
-| Collision search is not a safe final-name reservation | `place` applies a suffix to the current filename on each retry and proceeds to `write_through` after the bounded loop without a final exhaustion refusal. The writer uses replacement persistence. Replace this with a shared reservation/conflict policy that cannot overwrite verified bytes; test exhaustion and races. | #0022, #0024, #0037 |
-| Inventory and verifier walks suppress failures | `pipeline::cr3_files` and `verify::manifest_folders` filter failed walk entries; preflight byte totals filter failed metadata reads. A matching visible subset is not evidence of a complete card or archive. Propagate errors and name the affected path. | #0019, #0021, #0025 |
-| Backpressure bounds photo count, not memory bytes | `feed` calls `fs::read` for an entire photo and shares it through depth-four queues. It does not implement fixed-size streaming buffers. Define a byte budget and seekable CR3 metadata strategy, then benchmark; do not simply retain Windows memory estimates. | #0016, #0023, #0026 |
-| Resume primitives are not a complete session-resume engine | `runlog::read` exists, but production orchestration opens a new timestamped log and does not call that reader. Reruns reread the source and hash existing destination files. `_unfiled` paths include the new run ID. Implement explicit journal/inventory/identity reconciliation so recovery does not duplicate unfiled photos or trust a replaced volume. | #0018, #0022, #0034 |
-| Corroboration confirmation can ignore original ingest bytes | `phase4::run` calls a mismatch transient when the two later card reads agree, without checking that their agreed hash equals `frame.sha256`. Both cards changing to the same later bytes must not corroborate an older landed copy. Preserve and compare the canonical hash. | #0027, #0037 |
-| Metadata errors lose their reason in the pipeline | `capture_instant` maps every non-resolved capture result to `None`. Preserve typed missing-offset, parse-failure, and conflict reasons in reports rather than only recording an unfiled basename. | #0019, #0020, #0036 |
-| Sidecar skipping is not cross-copy verification | `phase5` skips any existing sidecar; `xmp::write_atomic` itself replaces existing files and has no explicit flush/read-back step. Render bytes are reusable, but creation, consistency, persistence, and conflict handling need the native writer and a separate sidecar outcome. | #0029, #0030 |
-| Atomic replacement is not the whole durability contract | Manifests and markers call `winio::write_through`; the run log calls `sync_data`; XMP uses `tempfile::persist`. Retain safe temporary/final ordering, but prove external-media flush, rename, and read-back semantics on the actual filesystems. | #0007, #0024, #0025, #0028 |
-| Windows cache claims have limits even upstream | `winio::unbuffered_sha256` bypasses the OS page cache; its comments explicitly acknowledge SSD DRAM on small datasets. Preserve this distinction and do not strengthen the claim when adapting to iPadOS. | #0007, #0012, #0033 |
+| Naming is resolved independently per destination | `pipeline.rs:place` checks each drive's existing contents and chooses its suffix there. Divergent existing archives can therefore give the same source photo different destination paths; `Outcome::landed` checks hashes/counts, not path agreement. Choose one shared plan before writing. | #0021, #0023, #0028 |
+| Collision search is not a safe final-name reservation | `place` applies a suffix to the current filename on each retry and proceeds to `write_through` after the bounded loop without a final exhaustion refusal. The writer uses replacement persistence. Replace this with a shared reservation/conflict policy that cannot overwrite verified bytes; test exhaustion and races. | #0023, #0026, #0037 |
+| Inventory and verifier walks suppress failures | `pipeline::cr3_files` and `verify::manifest_folders` filter failed walk entries; preflight byte totals filter failed metadata reads. A matching visible subset is not evidence of a complete card or archive. Propagate errors and name the affected path. | #0020, #0022, #0027 |
+| Backpressure bounds photo count, not memory bytes | `feed` calls `fs::read` for an entire photo and shares it through depth-four queues. It does not implement fixed-size streaming buffers. Define a byte budget and seekable CR3 metadata strategy, then benchmark; do not simply retain Windows memory estimates. | #0016, #0019, #0028 |
+| Resume primitives are not a complete session-resume engine | `runlog::read` exists, but production orchestration opens a new timestamped log and does not call that reader. Reruns reread the source and hash existing destination files. `_unfiled` paths include the new run ID. Implement explicit journal/inventory/identity reconciliation so recovery does not duplicate unfiled photos or trust a replaced volume. | #0018, #0023, #0034 |
+| Corroboration confirmation can ignore original ingest bytes | `phase4::run` calls a mismatch transient when the two later card reads agree, without checking that their agreed hash equals `frame.sha256`. Both cards changing to the same later bytes must not corroborate an older landed copy. Preserve and compare the canonical hash. | #0030, #0037 |
+| Metadata errors lose their reason in the pipeline | `capture_instant` maps every non-resolved capture result to `None`. Preserve typed missing-offset, parse-failure, and conflict reasons in reports rather than only recording an unfiled basename. | #0020, #0021, #0035 |
+| Sidecar skipping is not cross-copy verification | `phase5` skips any existing sidecar; `xmp::write_atomic` itself replaces existing files and has no explicit flush/read-back step. Render bytes are reusable, but creation, consistency, persistence, and conflict handling need the native writer and a separate sidecar outcome. | #0024, #0031 |
+| Atomic replacement is not the whole durability contract | Manifests and markers call `winio::write_through`; the run log calls `sync_data`; XMP uses `tempfile::persist`. Retain safe temporary/final ordering, but prove external-media flush, rename, and read-back semantics on the actual filesystems. | #0007, #0026, #0027, #0029 |
+| Windows cache claims have limits even upstream | `winio::unbuffered_sha256` bypasses the OS page cache; its comments explicitly acknowledge SSD DRAM on small datasets. Preserve this distinction and do not strengthen the claim when adapting to iPadOS. | #0007, #0010, #0033 |
 
 ## Locked dependency and platform risks
 
@@ -140,7 +140,7 @@ the Apple build workflow rather than assuming the runner's default is suitable.
 Rust's ARM64 device and simulator targets are `aarch64-apple-ios` and
 `aarch64-apple-ios-sim`. Both require the corresponding Xcode SDK; running the
 tests requires a device or simulator. Standard-target availability does not
-prove this dependency graph links on Apple. Card #0003 should compile the chosen
+prove this dependency graph links on Apple. Card #0002 should compile the chosen
 portable subset on GitHub Actions with matching Rust/Xcode deployment settings;
 card #0016 handles packaging and FFI. [Rust Apple-target documentation](https://doc.rust-lang.org/rustc/platform-support/apple-ios.html)
 
@@ -155,7 +155,7 @@ simulator builds independently.
 | --- | --- | --- |
 | 69 `geotag` unit tests | Carry over exact XMP packets, offset precedence, track boundaries/gaps/overlaps, and antimeridian cases. Separate render/lookup tests from authorized file I/O. | Real CR3 parsing and GPX files on Apple, including a seekable reader/handle route. |
 | Naming, hashing, manifest, marker, and run-log library tests | Extract with the corresponding core modules. Preserve known hashes, suffix rules, typed errors, manifest merging, and torn-final-line behavior. | Shared three-destination naming, partial archive drift, cancellation, byte-budget bounds, and identity-based resume. |
-| `tests/fixtures/manifest-schema-1.json` and 4 `schema1` tests | Keep the frozen file and its checksum; do not regenerate it from new structs. Continue understanding legacy deleted/tombstone entries while new MobileFlow mismatch handling retains copies. | New schema/assurance fields and cross-version comparisons as scoped by #0028. |
+| `tests/fixtures/manifest-schema-1.json` and 4 `schema1` tests | Keep the frozen file and its checksum; do not regenerate it from new structs. Continue understanding legacy deleted/tombstone entries while new MobileFlow mismatch handling retains copies. | New schema/assurance fields and cross-version comparisons as scoped by #0029. |
 | 4 synthetic `tests/phase3.rs` integration tests | Adapt four destinations to three; retain distinct frame bytes, odd file sizes, per-pair logging, repeated-run behavior, and preserved unfiled files. | They contain no valid EXIF, so all photos take `_unfiled`; they do not test the real date-folder pipeline or physical drive identity. |
 | `geotag/fixture-manifests/*.sha256` | Preserve expected fixture identities and hashes where approved. The existing format-coverage test checks manifest filenames/extensions. | Actual CR3/NEF/GPX bytes are not committed in this snapshot. A passing coverage test does not rehash or parse those real files. |
 | `fixtures/dev-slice-50.json` | Reuse the selection method for a representative development slice after obtaining the privately held source corpus. Keep personal photo/GPS data out of the public repository. | The JSON names 50 frames; it does not contain them. Full-day benchmarks need an approved actual dataset. |
@@ -194,7 +194,7 @@ attributions, change notices, and applicable upstream NOTICE content.
 [Apache-2.0 terms](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 Card #0014 should establish the project's license and imported-code notice layout.
-Cards #0043/#0045 should generate/review the target-specific notice inventory and
+Cards #0040/#0045 should generate/review the target-specific notice inventory and
 package a readable third-party notice with the signed application. Real fixture
 data needs its own provenance/permission; the Rust code's MIT license does not
 authorize publishing a private photography corpus. No final app license or
@@ -204,14 +204,14 @@ complete release-notice bundle is selected by this audit.
 
 | Card | Required input from this audit |
 | --- | --- |
-| #0003: build/signing access | Prove the portable subset on device and simulator targets with a tested Rust/Xcode pair; continue using GitHub Actions tentatively. |
+| #0002: build/signing access | Prove the portable subset on device and simulator targets with a tested Rust/Xcode pair; continue using GitHub Actions tentatively. |
 | #0007: media verification | Cover photo, manifest, marker, run journal, and sidecar write/rename/flush semantics; distinguish OS-cache bypass from SSD-controller guarantees. |
-| #0012: identity/release | Replace volume serial/GUID/extents/eject assumptions with supported native identity and release evidence. |
+| #0010: identity/release | Replace volume serial/GUID/extents/eject assumptions with supported native identity and release evidence. |
 | #0013: architecture | Decide extraction/FFI and native provider boundaries; account for typed progress, byte budgets, cancellation, and scoped-access lifetime. |
 | #0015: fixture foundation | Carry over the frozen manifest and unit semantics; obtain real private CR3/GPX bytes and add complete date-folder and recovery cases. |
-| #0018/#0022/#0024/#0027/#0030 | Implement explicit recovery, shared naming, protected finalization, canonical-hash corroboration, and three-copy sidecar consistency rather than transplanting their current path calls. |
+| #0018/#0023/#0026/#0030/#0031 | Implement explicit recovery, shared naming, protected finalization, canonical-hash corroboration, and three-copy sidecar consistency rather than transplanting their current path calls. |
 
-The audit meets card #0002's module/reuse map, dependency/platform risk, fixture
+The audit meets card #0004's module/reuse map, dependency/platform risk, fixture
 plan, license-obligation, and three-destination-change criteria. Apple compilation
 and physical-media guarantees remain unverified and belong to the named cards.
 The upstream checkout stays unchanged, and MobileFlow has not imported engine

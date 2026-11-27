@@ -68,7 +68,7 @@ probe before the app promises unattended operation.
 | R10 | An interrupted or failed phase cannot produce a clean whole-run result. Preserve completed copies and explain what remains. |
 
 If physical independence cannot be established reliably on iPadOS, the app cannot
-silently treat three selected folders as three proved backups. Card #0012 must
+silently treat three selected folders as three proved backups. Card #0010 must
 define the supported identity method and any operator-assisted fallback for
 review. The same rule applies to uncertainty about overlaps or free capacity.
 
@@ -122,7 +122,7 @@ not the default.
 Each SSD carries a self-describing versioned manifest that permits independent
 photo verification without the iPad's journal or the other SSDs. Preserve the
 upstream stable photo fields where compatible; schema compatibility and exact
-serialization are card #0028's implementation decision. Destination-specific
+serialization are card #0029's implementation decision. Destination-specific
 metadata may differ, while the photo paths, sizes, and SHA-256 values agree.
 Sidecar consistency is reported separately from the stable photo verification
 record because sidecars can be deliberately regenerated from corrected tracks.
@@ -177,7 +177,7 @@ those frames as unmatched rather than inventing positions.
 Content equality, persistent storage, and permission to unplug answer different
 questions. The report must state the proven assurance level rather than treating
 an immediate hash read from a cache as proof of physical-media persistence.
-Card #0007 must establish the write-flush and read-back strategy; card #0012
+Card #0007 must establish the write-flush and read-back strategy; card #0010
 must establish safe disconnect guidance. Until those probes pass, a prototype
 may report **Copied and hash-checked** but cannot advertise the production
 verified-photo or safe-removal guarantee.
@@ -193,7 +193,7 @@ verified-photo or safe-removal guarantee.
 Disconnect readiness is a separate per-device field. **Released / safe to
 disconnect** is reserved for the tested supported procedure and its evidence.
 Otherwise show **Disconnect readiness not established** or the concrete required
-OS action, as established by card #0012. Closing file handles alone must not be
+OS action, as established by card #0010. Closing file handles alone must not be
 reported as an eject. No card-formatting permission is inferred from an early
 milestone, an attention result, or a physical-release result.
 
@@ -251,7 +251,7 @@ The upstream reference for this contract is PhotoTravelWorkflow commit
 [manifests](https://github.com/TerryOtt/PhotoTravelWorkflow/blob/0ffbc57d7fb6514e2e800a027d7226701c19eabd/crates/offload/src/manifest.rs),
 and [GPX rules](https://github.com/TerryOtt/PhotoTravelWorkflow/blob/0ffbc57d7fb6514e2e800a027d7226701c19eabd/crates/geotag/src/track.rs)
 were inspected. This pins the behavioral reference; it does not complete card
-#0002's portability/dependency/license audit.
+#0004's portability/dependency/license audit.
 
 The current hardware/build decisions come from Terry's MobileFlow instructions,
 not assumptions about the older Windows rig. Review of card #0001 settled the
@@ -259,7 +259,7 @@ initial behavior, especially the non-deleting disagreement policy and separate
 photo/whole-run/disconnect verdicts. Cards #0006-#0012 establish platform access,
 durability, identity, lifecycle, and performance evidence. Card #0013 chooses the
 architecture from those results. Signing and the device-install route remain
-card #0003; GitHub Actions is the tentative macOS build host.
+card #0002; GitHub Actions is the tentative macOS build host.
 
 The principal accepted MobileFlow adaptations are:
 
