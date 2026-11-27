@@ -12,6 +12,35 @@ Status: planning. No app implementation exists yet.
 - Two 10 Gbps USB SSDs and one Thunderbolt SSD.
 - The iPad and laptop are not photo backup destinations.
 
+### Why the 11-inch iPad Pro M5
+
+Terry confirmed the choice on 2026-11-26. Two constraints decide it:
+
+- **Port speed.** The Pro's Thunderbolt / USB 4 port runs at up to 40 Gbps, so
+  the Thunderbolt SSD can run at full speed. The alternative, an 11-inch iPad
+  Air, has a 10 Gbps USB-C port; the Thunderbolt SSD would fall back to USB
+  speed and share that 10 Gbps with everything else on the hub. As of
+  2026-11-26 the M5, released in October 2025, is the newest iPad Pro.
+- **It has to fit Terry's Peak Design Everyday Sling 6L.** The sling's tablet
+  sleeve takes tablets up to 11 inches; its retailer-listed maximum is
+  250 × 180 × 6 mm. A 13-inch iPad does not fit.
+
+| | Length | Width | Thickness |
+| --- | --- | --- | --- |
+| Sling 6L sleeve, maximum tablet | 250 mm | 180 mm | 6 mm |
+| 11-inch iPad Pro (M5) | 249.7 mm | 177.5 mm | 5.3 mm |
+| 11-inch iPad Air (M2), Terry's current iPad | 247.6 mm | 178.5 mm | 6.1 mm |
+
+A bare Pro is within the listed maximum on every dimension, but with almost no
+room to spare in length. A case pushes it past the listed size. The evidence
+that it still fits is Terry's own: his current M2 Air, in its case, fits the
+sling. The Pro is thinner and narrower than the Air and about 2 mm longer, so
+length is the only dimension that grows. He chose Apple's Smart Folio, a
+low-profile cover and stand, as the Pro's case. Whether the Pro in its Folio
+fits is still to be confirmed when the hardware arrives. The iPad dimensions
+were recalled from Apple's published figures on 2026-11-26 and have not yet been
+checked against Apple's specification pages.
+
 ## Intended workflow
 
 Select two source folders and three destination folders, optionally select a GPX
