@@ -70,3 +70,11 @@ Before opening the board, start or reuse its service and required JSON monitor:
 Run this from a Codex session with the tools and shared monitor described in
 `AGENTS.md`. The launcher requires an active Codex thread UUID and keeps the
 monitor targeted at that thread. Board reads and writes use `localswim-cli`.
+
+Agent working instructions live in [AGENTS.md](AGENTS.md); `CLAUDE.md` is a
+symbolic link to it.
+
+## License
+
+MobileFlow is released under the [MIT License](LICENSE). Third-party and
+upstream notices for shipped builds are tracked by the portability audit.

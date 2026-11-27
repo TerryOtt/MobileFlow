@@ -76,6 +76,26 @@ human action, and Blocked only when neither Terry nor Bot can act until an
 external condition changes. Do not archive or delete cards to hide outstanding
 work. Leave automatic state-store pushing disabled unless Terry requests it.
 
+## Claude sessions, instruction files, and license
+
+RFC 2119 keywords, and the capitals are load-bearing, in this section.
+
+- `CLAUDE.md` is a symbolic link to this file. Instructions MUST be edited here,
+  never by replacing the link with a copy. A Windows checkout needs Developer
+  Mode (or equivalent symlink rights) and `git config core.symlinks true`;
+  without them Git writes `CLAUDE.md` as a one-line text file naming `AGENTS.md`.
+- The board was imported into localswim v2 as `MobileFlow`, board ID
+  `12fe6a1f-50be-44df-bd82-85ff21b301c6`, served by the v2 service at
+  `http://127.0.0.1:8811`. The v1 JSON path and port 8806 above predate that
+  import; on 2026-11-26 the v1 board file no longer existed.
+- A Claude session SHOULD hear Terry's board changes through
+  `C:\Projects\claude-localswim-watcher`, where this board is registered as
+  `mobileflow` (2026-11-26). Arm it under the Monitor tool at session start with
+  `watch.ps1 -Board mobileflow -Reader MobileFlow`, and re-arm it on expiry.
+- The repository is MIT licensed (`LICENSE`). Code imported from
+  PhotoTravelWorkflow MUST keep its upstream copyright and permission notice, as
+  `docs/PORTABILITY-AUDIT.md` requires.
+
 ## Commits and pushes
 
 Terry's standing approval dated 2026-09-12 authorizes in-scope commits and pushes,
