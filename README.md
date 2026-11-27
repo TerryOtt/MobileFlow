@@ -7,8 +7,8 @@ Status: planning. No app implementation exists yet.
 
 ## Target setup
 
-- 11-inch iPad Pro M5 running the app. Terry ordered a 1 TB unit on 2026-11-26;
-  it is due 2026-12-01.
+- 11-inch iPad Pro M5 running the app. Terry ordered a 1 TB unit and a black
+  Smart Folio on 2026-11-26; both are due 2026-12-01.
 - Element 5 Hub connecting two camera card readers and three external SSDs.
 - Two 10 Gbps USB SSDs and one Thunderbolt SSD.
 - The iPad and laptop are not photo backup destinations.
