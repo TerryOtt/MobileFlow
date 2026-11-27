@@ -81,7 +81,8 @@ Terry's seven-lane workflow applies:
   only when neither Terry nor Bot can act until an external condition changes.
 - Cards MUST NOT be archived or deleted to hide outstanding work.
 - The board's state-store publishing MUST NOT be changed without Terry's request.
-  It was enabled on 2026-11-17 by a Bot action.
+  A Bot action enabled it on 2026-11-17, and Terry decided on 2026-11-26 that it
+  stays enabled.
 
 ## Instruction files and license
 
